@@ -32,10 +32,70 @@ const navigation: NavSection[] = [
     ],
   },
   {
+    title: "Features",
+    items: [
+      { label: "Grid", href: "/components/features-grid" },
+      { label: "Alternating", href: "/components/features-alternating" },
+      { label: "List", href: "/components/features-list" },
+    ],
+  },
+  {
+    title: "Pricing",
+    items: [
+      { label: "Cards", href: "/components/pricing-cards" },
+      { label: "Table", href: "/components/pricing-table" },
+    ],
+  },
+  {
+    title: "Testimonials",
+    items: [
+      { label: "Grid", href: "/components/testimonials-grid" },
+      { label: "Featured", href: "/components/testimonials-featured" },
+    ],
+  },
+  {
+    title: "CTA",
+    items: [
+      { label: "Banner", href: "/components/cta-banner" },
+      { label: "Centered", href: "/components/cta-centered" },
+      { label: "Split", href: "/components/cta-split" },
+    ],
+  },
+  {
+    title: "Stats",
+    items: [
+      { label: "Grid", href: "/components/stats-grid" },
+      { label: "Banner", href: "/components/stats-banner" },
+    ],
+  },
+  {
+    title: "FAQ",
+    items: [
+      { label: "Accordion", href: "/components/faq-accordion" },
+      { label: "Grid", href: "/components/faq-grid" },
+    ],
+  },
+  {
+    title: "Other Sections",
+    items: [
+      { label: "Logo Cloud", href: "/components/logo-cloud" },
+      { label: "Newsletter Banner", href: "/components/newsletter-banner" },
+      { label: "Newsletter Split", href: "/components/newsletter-split" },
+      { label: "Navbar Simple", href: "/components/navbar-simple" },
+      { label: "Footer Simple", href: "/components/footer-simple" },
+      { label: "Footer Columns", href: "/components/footer-columns" },
+    ],
+  },
+  {
     title: "Primitives",
     items: [
       { label: "Button", href: "/components/button" },
       { label: "Badge", href: "/components/badge" },
+      { label: "Input", href: "/components/input" },
+      { label: "Card", href: "/components/card" },
+      { label: "Avatar", href: "/components/avatar" },
+      { label: "Accordion", href: "/components/accordion" },
+      { label: "Divider", href: "/components/divider" },
     ],
   },
   {
@@ -52,6 +112,8 @@ const navigation: NavSection[] = [
       { label: "FadeIn", href: "/components/fade-in" },
       { label: "SlideUp", href: "/components/slide-up" },
       { label: "StaggerChildren", href: "/components/stagger-children" },
+      { label: "ScaleIn", href: "/components/scale-in" },
+      { label: "BlurIn", href: "/components/blur-in" },
     ],
   },
 ];
@@ -92,7 +154,7 @@ export function Sidebar() {
                         "block rounded-md px-2 py-1.5 text-sm transition-colors",
                         isActive
                           ? "bg-[rgb(var(--trinkui-primary)/0.1)] font-medium text-[rgb(var(--trinkui-primary))]"
-                          : "text-[rgb(var(--trinkui-fg))] hover:bg-[rgb(var(--trinkui-border)/0.5)] hover:text-[rgb(var(--trinkui-fg))]"
+                          : "text-[rgb(var(--trinkui-fg))] hover:bg-[rgb(var(--trinkui-border)/0.5)]"
                       )}
                     >
                       {item.label}
