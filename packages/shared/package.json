@@ -1,11 +1,11 @@
 {
   "name": "@trinkui/shared",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Shared types and constants for trink-ui",
   "repository": { "type": "git", "url": "https://github.com/trinkui/trinkui" },
   "homepage": "https://trinkui.com",
-  "private": true,
   "sideEffects": false,
+  "files": ["dist"],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

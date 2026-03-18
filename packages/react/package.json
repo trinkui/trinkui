@@ -1,6 +1,6 @@
 {
   "name": "@trinkui/react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Landing page UI components for React",
   "keywords": ["react", "ui", "landing-page", "components", "tailwind"],
   "homepage": "https://trinkui.com",
