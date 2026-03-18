@@ -1,12 +1,43 @@
+"use client";
+
 import { Sidebar } from "@/components/Sidebar";
+import { TopBar } from "@/components/TopBar";
+import { TableOfContents } from "@/components/TableOfContents";
+import { PromoBanner } from "@/components/PromoBanner";
 
 export default function ComponentsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 overflow-auto">
-        <div className="mx-auto max-w-4xl px-8 py-12">{children}</div>
-      </main>
+    <div className="min-h-screen bg-[rgb(var(--trinkui-bg))]">
+      {/* Background gradient shapes */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <div
+          className="absolute -left-[20rem] top-[10%] h-[40rem] w-[40rem] rounded-full opacity-[0.03]"
+          style={{ background: "radial-gradient(circle, rgb(var(--trinkui-primary)) 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute -right-[15rem] top-[60%] h-[35rem] w-[35rem] rounded-full opacity-[0.02]"
+          style={{ background: "radial-gradient(circle, rgb(var(--trinkui-accent)) 0%, transparent 70%)" }}
+        />
+      </div>
+
+      <div className="relative z-10">
+        <PromoBanner />
+        <TopBar />
+
+        {/* Main container — sidebar + content + TOC all inside max-width */}
+        <div className="mx-auto max-w-[1440px] flex">
+          {/* Left sidebar */}
+          <Sidebar />
+
+          {/* Content area */}
+          <main className="min-w-0 flex-1 px-10 py-10 lg:px-16">
+            <div className="max-w-3xl">{children}</div>
+          </main>
+
+          {/* Right TOC */}
+          <TableOfContents />
+        </div>
+      </div>
     </div>
   );
 }

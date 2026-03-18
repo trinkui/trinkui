@@ -14,7 +14,7 @@ export const inputWrapperStyles = variants({
       lg: "h-12 px-4 text-base rounded-[var(--trinkui-radius-md)]",
     },
     hasError: {
-      true: "border-red-500 focus-within:ring-red-500",
+      true: "border-[rgb(var(--trinkui-danger))] focus-within:ring-[rgb(var(--trinkui-danger))]",
       false: "",
     },
   },

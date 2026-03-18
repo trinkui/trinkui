@@ -10,17 +10,20 @@ export default async function ComponentSlugPage({ params }: Props) {
   // These slugs have dedicated pages — redirect handled by Next.js routing
   // This catch-all handles future/unknown slugs gracefully
   const knownSlugs = [
-    "hero-centered",
-    "hero-split",
-    "hero-minimal",
-    "button",
-    "badge",
-    "container",
-    "section",
-    "section-header",
-    "fade-in",
-    "slide-up",
-    "stagger-children",
+    "hero-centered", "hero-split", "hero-minimal",
+    "features-grid", "features-alternating", "features-list",
+    "pricing-cards", "pricing-table",
+    "testimonials-grid", "testimonials-featured",
+    "cta-banner", "cta-centered", "cta-split",
+    "stats-grid", "stats-banner",
+    "faq-accordion", "faq-grid",
+    "logo-cloud", "newsletter-banner", "newsletter-split",
+    "navbar-simple", "footer-simple", "footer-columns",
+    "button", "badge", "input", "card", "avatar", "accordion", "divider",
+    "kbd", "chip", "pagination", "select", "textarea", "drawer", "dropdown", "table", "toast",
+    "slider", "popover", "snippet", "spacer", "image", "user", "radio-group", "navbar",
+    "container", "section", "section-header",
+    "fade-in", "slide-up", "stagger-children", "scale-in", "blur-in",
   ];
 
   if (!knownSlugs.includes(slug)) {
@@ -42,13 +45,19 @@ export default async function ComponentSlugPage({ params }: Props) {
 
 export function generateStaticParams() {
   return [
-    { slug: "button" },
-    { slug: "badge" },
-    { slug: "container" },
-    { slug: "section" },
-    { slug: "section-header" },
-    { slug: "fade-in" },
-    { slug: "slide-up" },
-    { slug: "stagger-children" },
-  ];
+    "hero-centered", "hero-split", "hero-minimal",
+    "features-grid", "features-alternating", "features-list",
+    "pricing-cards", "pricing-table",
+    "testimonials-grid", "testimonials-featured",
+    "cta-banner", "cta-centered", "cta-split",
+    "stats-grid", "stats-banner",
+    "faq-accordion", "faq-grid",
+    "logo-cloud", "newsletter-banner", "newsletter-split",
+    "navbar-simple", "footer-simple", "footer-columns",
+    "button", "badge", "input", "card", "avatar", "accordion", "divider",
+    "kbd", "chip", "pagination", "select", "textarea", "drawer", "dropdown", "table", "toast",
+    "slider", "popover", "snippet", "spacer", "image", "user", "radio-group", "navbar",
+    "container", "section", "section-header",
+    "fade-in", "slide-up", "stagger-children", "scale-in", "blur-in",
+  ].map((slug) => ({ slug }));
 }

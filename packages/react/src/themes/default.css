@@ -17,6 +17,12 @@
   --trinkui-border: 226 232 240; /* slate-200 */
   --trinkui-surface: 248 250 252; /* slate-50 */
 
+  /* Status colors */
+  --trinkui-success: 23 201 100;
+  --trinkui-warning: 245 165 36;
+  --trinkui-danger: 243 18 96;
+  --trinkui-info: 0 111 238;
+
   /* Typography */
   --trinkui-font-heading: "Inter", sans-serif;
   --trinkui-font-body: "Inter", sans-serif;
@@ -52,4 +58,10 @@
   --trinkui-muted: 148 163 184; /* slate-400 */
   --trinkui-border: 51 65 85; /* slate-700 */
   --trinkui-surface: 15 23 42; /* slate-900 */
+
+  /* Status colors */
+  --trinkui-success: 69 212 131;
+  --trinkui-warning: 247 183 80;
+  --trinkui-danger: 245 65 128;
+  --trinkui-info: 51 142 247;
 }

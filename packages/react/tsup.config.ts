@@ -8,10 +8,8 @@ export default defineConfig({
   clean: true,
   treeshake: true,
   external: ["react", "react-dom"],
-  // Next.js App Router requires "use client" directive for hook-using components
-  esbuildOptions(options) {
-    options.banner = {
-      js: '"use client";',
-    };
+  // Next.js App Router requires "use client" for hook-using components
+  banner: {
+    js: '"use client";',
   },
 });

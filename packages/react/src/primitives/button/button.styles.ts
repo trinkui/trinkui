@@ -30,7 +30,7 @@ export const buttonStyles = variants({
         "hover:bg-[rgb(var(--trinkui-surface))] active:scale-[0.98]",
       ].join(" "),
       destructive: [
-        "bg-red-500 text-white hover:bg-red-600 active:scale-[0.98]",
+        "bg-[rgb(var(--trinkui-danger))] text-white hover:bg-[rgb(var(--trinkui-danger)/0.9)] active:scale-[0.98]",
         "shadow-sm",
       ].join(" "),
     },

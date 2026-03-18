@@ -409,3 +409,21 @@ refactor/animation-hooks
 ❌ Import from @trinkui/react inside @trinkui/react (circular)
 ❌ Create a Section that imports another Section
 ```
+
+## Testing Conventions
+
+- Every new component should have a `*.test.tsx` file
+- Use `describe/it/expect` from Vitest
+- Use `render/screen/fireEvent` from @testing-library/react
+- Test: renders correctly, handles props, fires events, accessibility roles
+- Never snapshot test — test behavior instead
+
+## Semantic Colors
+
+Components that show status (success, warning, error) must use semantic CSS variables:
+- `--trinkui-success` for positive/green states
+- `--trinkui-warning` for caution/amber states
+- `--trinkui-danger` for error/red states
+- `--trinkui-info` for informational/blue states
+
+Never hardcode Tailwind color classes like `text-red-500` for status colors.

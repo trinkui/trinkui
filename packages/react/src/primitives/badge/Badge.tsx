@@ -22,9 +22,9 @@ const badgeStyles = variants({
       primary: "bg-[rgb(var(--trinkui-primary)/0.1)] text-[rgb(var(--trinkui-primary))] border border-[rgb(var(--trinkui-primary)/0.2)]",
       secondary: "bg-[rgb(var(--trinkui-secondary))] text-[rgb(var(--trinkui-secondary-fg))]",
       outline: "border border-[rgb(var(--trinkui-border))] text-[rgb(var(--trinkui-fg))] bg-transparent",
-      success: "bg-green-50 text-green-700 border border-green-200 dark:bg-green-950 dark:text-green-400 dark:border-green-800",
-      warning: "bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950 dark:text-amber-400 dark:border-amber-800",
-      destructive: "bg-red-50 text-red-700 border border-red-200 dark:bg-red-950 dark:text-red-400 dark:border-red-800",
+      success: "bg-[rgb(var(--trinkui-success)/0.1)] text-[rgb(var(--trinkui-success))] border border-[rgb(var(--trinkui-success)/0.2)]",
+      warning: "bg-[rgb(var(--trinkui-warning)/0.1)] text-[rgb(var(--trinkui-warning))] border border-[rgb(var(--trinkui-warning)/0.2)]",
+      destructive: "bg-[rgb(var(--trinkui-danger)/0.1)] text-[rgb(var(--trinkui-danger))] border border-[rgb(var(--trinkui-danger)/0.2)]",
     },
     size: {
       sm: "px-2 py-0.5 text-xs",

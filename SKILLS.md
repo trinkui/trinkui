@@ -896,3 +896,28 @@ When to update `AGENTS.md`, `SKILLS.md`, and `CLAUDE.md`:
 | Build command changes | `CLAUDE.md`, `AGENTS.md` §2 |
 
 **Rule:** If you add a new component that establishes a new pattern, update the relevant skill with that component as the new reference example.
+
+## Skill: Write Component Tests
+
+1. Create `{Component}.test.tsx` next to the component file
+2. Import from vitest and @testing-library/react
+3. Write tests for: rendering, props, events, refs, a11y
+4. Run: `cd packages/react && npx vitest run`
+5. All tests must pass before PR
+
+## Skill: Add Semantic Color Support
+
+1. Use `--trinkui-success/warning/danger/info` variables
+2. Never use hardcoded Tailwind colors for status (no `red-500`)
+3. Pattern: `bg-[rgb(var(--trinkui-danger)/0.1)] text-[rgb(var(--trinkui-danger))]`
+4. Update both `default.css` and docs `globals.css`
+
+## Skill: Create a Landing Page Template
+
+1. Create `apps/docs/app/templates/{name}/page.tsx`
+2. Add `"use client"` at top
+3. Import section components from `@trinkui/react`
+4. Use `animated={false}` on all sections
+5. Add floating "Back to Docs" link
+6. Add to Sidebar templates list
+7. Test with `pnpm --filter docs build`

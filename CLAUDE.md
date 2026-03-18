@@ -231,3 +231,23 @@ test(button): add keyboard navigation test
 2. Check `packages/react/src/index.ts` to understand current exports
 3. Run `pnpm build` at the end to confirm nothing is broken
 4. If you changed `Sidebar.tsx`, verify the nav link works
+
+## Semantic Color Variables
+
+In addition to the base variables, use these semantic colors:
+
+```css
+--trinkui-success   /* green — positive actions, success states */
+--trinkui-warning   /* amber — caution, warnings */
+--trinkui-danger    /* red — errors, destructive actions */
+--trinkui-info      /* blue — informational */
+```
+
+Always use `rgb(var(--trinkui-danger))` instead of hardcoded `red-500` etc.
+
+## Testing
+
+- Tests use Vitest + @testing-library/react
+- Test files go next to the component: `Button.test.tsx`
+- Run: `pnpm --filter @trinkui/react test`
+- Minimum: test render, props, events, accessibility
