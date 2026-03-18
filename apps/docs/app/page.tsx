@@ -460,18 +460,6 @@ export default function HomePage() {
 
           {/* Far right — Search, GitHub, Theme */}
           <div className="flex items-center gap-2">
-            {/* Search (visual only) */}
-            <button
-              className="hidden items-center gap-2 rounded-lg border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-3 py-1.5 text-sm text-[rgb(var(--trinkui-muted))] transition-colors hover:border-[rgb(var(--trinkui-muted)/0.5)] sm:flex"
-              aria-label="Search"
-            >
-              {icons.search}
-              <span className="hidden lg:inline">Search...</span>
-              <kbd className="ml-2 hidden rounded border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] px-1.5 py-0.5 text-[10px] font-mono text-[rgb(var(--trinkui-muted))] lg:inline">
-                Ctrl+K
-              </kbd>
-            </button>
-
             {/* GitHub */}
             <a
               href="https://github.com/trinkui"
