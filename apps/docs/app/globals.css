@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Scan component library source for Tailwind utility classes */
+@source "../../../packages/react/src";
+@source "../../../packages/shared/src";
+
 @theme {
   --color-background: rgb(var(--trinkui-bg, 255 255 255));
   --color-foreground: rgb(var(--trinkui-fg, 10 10 10));
