@@ -50,6 +50,22 @@ const templates: NavSection = {
   ],
 };
 
+const guides: NavSection = {
+  title: "Guides",
+  items: [
+    { label: "Next.js Setup", href: "/docs/guides/nextjs-setup" },
+    { label: "Vite Setup", href: "/docs/guides/vite-setup" },
+    { label: "Remix Setup", href: "/docs/guides/remix-setup" },
+    { label: "Build a Landing Page", href: "/docs/guides/landing-page" },
+    { label: "Dark Mode", href: "/docs/guides/dark-mode" },
+    { label: "Forms & Validation", href: "/docs/guides/forms" },
+    { label: "Animations", href: "/docs/guides/animations" },
+    { label: "Responsive Design", href: "/docs/guides/responsive" },
+    { label: "SEO Best Practices", href: "/docs/guides/seo" },
+    { label: "Deployment", href: "/docs/guides/deployment" },
+  ],
+};
+
 const components: NavSection = {
   title: "Components",
   items: [
@@ -190,6 +206,7 @@ export function Sidebar({ onSearchClick }: SidebarProps) {
         )}
 
         {renderSection(components)}
+        {renderSection(guides)}
       </nav>
     </aside>
   );
