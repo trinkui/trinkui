@@ -1,4 +1,11 @@
+"use client";
+
+import { useState } from "react";
+
 export default function SwitchPage() {
+  const [switch1, setSwitch1] = useState(false);
+  const [switch2, setSwitch2] = useState(true);
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -9,6 +16,94 @@ export default function SwitchPage() {
           A toggle switch for binary on/off states. Ideal for settings and preferences that take effect immediately.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Demo</h2>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="space-y-6">
+            {/* Toggle off */}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={switch1}
+                onClick={() => setSwitch1(!switch1)}
+                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ${
+                  switch1 ? "bg-[rgb(var(--trinkui-primary))]" : "bg-[rgb(var(--trinkui-border))]"
+                }`}
+              >
+                <span
+                  className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ${
+                    switch1 ? "translate-x-5" : "translate-x-0"
+                  }`}
+                />
+              </button>
+              <span className="text-sm text-[rgb(var(--trinkui-fg))]">
+                Enable notifications {switch1 ? "(On)" : "(Off)"}
+              </span>
+            </div>
+
+            {/* Toggle on */}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                role="switch"
+                aria-checked={switch2}
+                onClick={() => setSwitch2(!switch2)}
+                className={`relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ${
+                  switch2 ? "bg-[rgb(var(--trinkui-primary))]" : "bg-[rgb(var(--trinkui-border))]"
+                }`}
+              >
+                <span
+                  className={`pointer-events-none inline-block h-[22px] w-[22px] rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ${
+                    switch2 ? "translate-x-[22px]" : "translate-x-0"
+                  }`}
+                />
+              </button>
+              <span className="text-sm text-[rgb(var(--trinkui-fg))]">
+                Dark mode {switch2 ? "(On)" : "(Off)"}
+              </span>
+            </div>
+
+            {/* Disabled */}
+            <div className="flex items-center gap-3 opacity-50">
+              <div className="relative inline-flex h-6 w-11 shrink-0 cursor-not-allowed rounded-full border-2 border-transparent bg-[rgb(var(--trinkui-border))]">
+                <span className="pointer-events-none inline-block h-5 w-5 translate-x-0 rounded-full bg-white shadow-sm ring-0" />
+              </div>
+              <span className="text-sm text-[rgb(var(--trinkui-muted))]">Locked setting (Disabled)</span>
+            </div>
+
+            {/* Size comparison */}
+            <div>
+              <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[rgb(var(--trinkui-muted))]">Sizes</p>
+              <div className="flex items-center gap-6">
+                {/* Small */}
+                <div className="flex items-center gap-2">
+                  <div className="relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent bg-[rgb(var(--trinkui-primary))]">
+                    <span className="pointer-events-none inline-block h-4 w-4 translate-x-4 rounded-full bg-white shadow-sm" />
+                  </div>
+                  <span className="text-xs text-[rgb(var(--trinkui-muted))]">sm</span>
+                </div>
+                {/* Medium */}
+                <div className="flex items-center gap-2">
+                  <div className="relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 border-transparent bg-[rgb(var(--trinkui-primary))]">
+                    <span className="pointer-events-none inline-block h-5 w-5 translate-x-5 rounded-full bg-white shadow-sm" />
+                  </div>
+                  <span className="text-xs text-[rgb(var(--trinkui-muted))]">md</span>
+                </div>
+                {/* Large */}
+                <div className="flex items-center gap-2">
+                  <div className="relative inline-flex h-8 w-14 shrink-0 rounded-full border-2 border-transparent bg-[rgb(var(--trinkui-primary))]">
+                    <span className="pointer-events-none inline-block h-7 w-7 translate-x-6 rounded-full bg-white shadow-sm" />
+                  </div>
+                  <span className="text-xs text-[rgb(var(--trinkui-muted))]">lg</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

@@ -1,4 +1,19 @@
+"use client";
+
+import { useState } from "react";
+
+function CheckIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5">
+      <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
 export default function CheckboxPage() {
+  const [checked1, setChecked1] = useState(false);
+  const [checked2, setChecked2] = useState(true);
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -9,6 +24,60 @@ export default function CheckboxPage() {
           A checkbox input for toggling boolean values. Supports multiple sizes, colors, labels, and descriptions.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Demo</h2>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="space-y-5">
+            {/* Unchecked checkbox */}
+            <label className="flex cursor-pointer items-center gap-3">
+              <button
+                type="button"
+                role="checkbox"
+                aria-checked={checked1}
+                onClick={() => setChecked1(!checked1)}
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
+                  checked1
+                    ? "border-[rgb(var(--trinkui-primary))] bg-[rgb(var(--trinkui-primary))] text-white"
+                    : "border-[rgb(var(--trinkui-border))] bg-transparent"
+                }`}
+              >
+                {checked1 && <CheckIcon />}
+              </button>
+              <span className="text-sm text-[rgb(var(--trinkui-fg))]">Accept terms and conditions</span>
+            </label>
+
+            {/* Checked checkbox */}
+            <label className="flex cursor-pointer items-center gap-3">
+              <button
+                type="button"
+                role="checkbox"
+                aria-checked={checked2}
+                onClick={() => setChecked2(!checked2)}
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-colors ${
+                  checked2
+                    ? "border-[rgb(var(--trinkui-primary))] bg-[rgb(var(--trinkui-primary))] text-white"
+                    : "border-[rgb(var(--trinkui-border))] bg-transparent"
+                }`}
+              >
+                {checked2 && <CheckIcon />}
+              </button>
+              <div>
+                <span className="text-sm text-[rgb(var(--trinkui-fg))]">Subscribe to newsletter</span>
+                <p className="text-xs text-[rgb(var(--trinkui-muted))]">Get weekly updates about new features.</p>
+              </div>
+            </label>
+
+            {/* Disabled checkbox */}
+            <label className="flex cursor-not-allowed items-center gap-3 opacity-50">
+              <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 border-[rgb(var(--trinkui-border))] bg-transparent">
+              </div>
+              <span className="text-sm text-[rgb(var(--trinkui-muted))]">Disabled option</span>
+            </label>
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

@@ -1,4 +1,120 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+
+interface TableRow {
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+}
+
+function TableDemo() {
+  const [sortCol, setSortCol] = useState<keyof TableRow | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+
+  const rawData: TableRow[] = [
+    { name: "Alice Johnson", email: "alice@example.com", role: "Developer", status: "Active" },
+    { name: "Bob Smith", email: "bob@example.com", role: "Designer", status: "Active" },
+    { name: "Carol Williams", email: "carol@example.com", role: "Manager", status: "Away" },
+    { name: "Dave Brown", email: "dave@example.com", role: "Developer", status: "Offline" },
+  ];
+
+  const data = [...rawData].sort((a, b) => {
+    if (!sortCol) return 0;
+    const aVal = a[sortCol];
+    const bVal = b[sortCol];
+    const cmp = aVal.localeCompare(bVal);
+    return sortDir === "asc" ? cmp : -cmp;
+  });
+
+  const handleSort = (col: keyof TableRow) => {
+    if (sortCol === col) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortCol(col);
+      setSortDir("asc");
+    }
+  };
+
+  const statusStyles: Record<string, string> = {
+    Active: "bg-emerald-500/15 text-emerald-500",
+    Away: "bg-amber-500/15 text-amber-500",
+    Offline: "bg-[rgb(var(--trinkui-muted)/0.15)] text-[rgb(var(--trinkui-muted))]",
+  };
+
+  const columns: { key: keyof TableRow; label: string }[] = [
+    { key: "name", label: "Name" },
+    { key: "email", label: "Email" },
+    { key: "role", label: "Role" },
+    { key: "status", label: "Status" },
+  ];
+
+  return (
+    <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+      <p className="mb-3 text-sm font-medium text-[rgb(var(--trinkui-fg))]">Interactive Table (click headers to sort)</p>
+      <div className="overflow-x-auto rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))]">
+        <table className="w-full text-left text-sm">
+          <thead>
+            <tr className="border-b border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-secondary))]">
+              {columns.map((col) => (
+                <th
+                  key={col.key}
+                  scope="col"
+                  className="px-4 py-3 font-medium text-[rgb(var(--trinkui-fg))] cursor-pointer select-none transition-colors hover:bg-[rgb(var(--trinkui-border)/0.3)]"
+                  onClick={() => handleSort(col.key)}
+                  aria-sort={sortCol === col.key ? (sortDir === "asc" ? "ascending" : "descending") : undefined}
+                >
+                  <span className="inline-flex items-center gap-1">
+                    {col.label}
+                    {sortCol === col.key ? (
+                      <svg className="h-3.5 w-3.5 text-[rgb(var(--trinkui-primary))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        {sortDir === "asc" ? (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                        ) : (
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        )}
+                      </svg>
+                    ) : (
+                      <svg className="h-3.5 w-3.5 text-[rgb(var(--trinkui-muted)/0.4)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                      </svg>
+                    )}
+                  </span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, i) => (
+              <tr
+                key={row.email}
+                className={`border-b border-[rgb(var(--trinkui-border))] transition-colors hover:bg-[rgb(var(--trinkui-secondary)/0.3)] ${
+                  i % 2 === 1 ? "bg-[rgb(var(--trinkui-secondary)/0.5)]" : ""
+                }`}
+              >
+                <td className="px-4 py-3 font-medium text-[rgb(var(--trinkui-fg))]">{row.name}</td>
+                <td className="px-4 py-3 text-[rgb(var(--trinkui-muted))]">{row.email}</td>
+                <td className="px-4 py-3 text-[rgb(var(--trinkui-muted))]">{row.role}</td>
+                <td className="px-4 py-3">
+                  <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${statusStyles[row.status] || ""}`}>
+                    {row.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {sortCol && (
+        <p className="mt-2 text-xs text-[rgb(var(--trinkui-muted))]">
+          Sorted by <span className="font-medium text-[rgb(var(--trinkui-primary))]">{sortCol}</span> ({sortDir === "asc" ? "ascending" : "descending"})
+        </p>
+      )}
+    </div>
+  );
+}
 
 export default function TablePage() {
   return (
@@ -10,6 +126,12 @@ export default function TablePage() {
         <p className="mt-2 text-[rgb(var(--trinkui-muted))]">
           Data table component for displaying structured information in rows and columns. Supports striped rows, hover highlighting, sortable columns, and compact mode.
         </p>
+      </div>
+
+      {/* Live Demo */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <TableDemo />
       </div>
 
       {/* Installation */}

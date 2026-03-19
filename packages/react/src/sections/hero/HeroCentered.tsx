@@ -25,7 +25,7 @@ export interface HeroCenteredProps extends HeroBaseProps {
  *   title="Build landing pages that convert"
  *   subtitle="Beautiful, accessible sections for React."
  *   primaryAction={{ label: "Get Started", href: "/docs" }}
- *   secondaryAction={{ label: "GitHub", href: "https://github.com/trinkui", variant: "outline" }}
+ *   secondaryAction={{ label: "GitHub", href: "https://github.com/trinkui/trinkui", variant: "outline" }}
  *   image={{ src: "/hero.png", alt: "Preview" }}
  * />
  */

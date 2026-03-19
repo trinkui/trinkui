@@ -1,4 +1,74 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+
+function TextareaDemo() {
+  const [basic, setBasic] = useState("");
+  const [withHint, setWithHint] = useState("");
+  const [errorVal, setErrorVal] = useState("");
+  const showError = errorVal.length > 0 && errorVal.length < 20;
+
+  return (
+    <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+      <p className="mb-4 text-sm font-medium text-[rgb(var(--trinkui-fg))]">Interactive Textareas</p>
+      <div className="flex flex-col gap-6 max-w-md">
+        {/* Basic */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-[rgb(var(--trinkui-fg))]">Message</label>
+          <textarea
+            rows={3}
+            value={basic}
+            onChange={(e) => setBasic(e.target.value)}
+            placeholder="Type your message here..."
+            className="w-full resize-y rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] px-3 py-2 text-sm text-[rgb(var(--trinkui-fg))] placeholder:text-[rgb(var(--trinkui-muted))] outline-none transition-colors focus:border-[rgb(var(--trinkui-primary))] focus:ring-2 focus:ring-[rgb(var(--trinkui-primary)/0.3)]"
+          />
+        </div>
+
+        {/* With Hint */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-[rgb(var(--trinkui-fg))]">Feedback</label>
+          <textarea
+            rows={3}
+            value={withHint}
+            onChange={(e) => setWithHint(e.target.value)}
+            placeholder="Share your feedback..."
+            className="w-full resize-y rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] px-3 py-2 text-sm text-[rgb(var(--trinkui-fg))] placeholder:text-[rgb(var(--trinkui-muted))] outline-none transition-colors focus:border-[rgb(var(--trinkui-primary))] focus:ring-2 focus:ring-[rgb(var(--trinkui-primary)/0.3)]"
+          />
+          <p className="mt-1.5 text-xs text-[rgb(var(--trinkui-muted))]">
+            {withHint.length}/500 characters used.
+          </p>
+        </div>
+
+        {/* Error State */}
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-[rgb(var(--trinkui-fg))]">Bio</label>
+          <textarea
+            rows={3}
+            value={errorVal}
+            onChange={(e) => setErrorVal(e.target.value)}
+            placeholder="Tell us about yourself (min 20 chars)..."
+            className={`w-full resize-y rounded-[var(--trinkui-radius-md)] border bg-[rgb(var(--trinkui-bg))] px-3 py-2 text-sm text-[rgb(var(--trinkui-fg))] placeholder:text-[rgb(var(--trinkui-muted))] outline-none transition-colors ${
+              showError
+                ? "border-[rgb(var(--trinkui-danger))] focus:ring-2 focus:ring-[rgb(var(--trinkui-danger)/0.3)]"
+                : "border-[rgb(var(--trinkui-border))] focus:border-[rgb(var(--trinkui-primary))] focus:ring-2 focus:ring-[rgb(var(--trinkui-primary)/0.3)]"
+            }`}
+          />
+          {showError && (
+            <p className="mt-1.5 text-xs text-[rgb(var(--trinkui-danger))]">
+              Bio must be at least 20 characters. Currently {errorVal.length} characters.
+            </p>
+          )}
+          {errorVal.length >= 20 && (
+            <p className="mt-1.5 text-xs text-emerald-500">
+              Looks good!
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TextareaPage() {
   return (
@@ -10,6 +80,12 @@ export default function TextareaPage() {
         <p className="mt-2 text-[rgb(var(--trinkui-muted))]">
           Multiline text input for longer form content. Supports labels, hints, error states, and multiple visual variants.
         </p>
+      </div>
+
+      {/* Live Demo */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <TextareaDemo />
       </div>
 
       {/* Installation */}

@@ -1,4 +1,71 @@
+"use client";
+
 import Link from "next/link";
+
+function KbdKey({ children }: { children: React.ReactNode }) {
+  return (
+    <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">
+      {children}
+    </kbd>
+  );
+}
+
+function KbdCombo({ keys, label }: { keys: string[]; label?: string }) {
+  return (
+    <span className="flex items-center gap-2 text-sm text-[rgb(var(--trinkui-muted))]">
+      {label && <span>{label}</span>}
+      <span className="flex items-center gap-1">
+        {keys.map((key, i) => (
+          <span key={i} className="flex items-center gap-1">
+            {i > 0 && <span className="text-xs text-[rgb(var(--trinkui-muted))]">+</span>}
+            <KbdKey>{key}</KbdKey>
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+function KbdLiveDemo() {
+  return (
+    <div className="space-y-6">
+      {/* Key combinations */}
+      <div>
+        <p className="mb-3 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Key Combinations</p>
+        <div className="flex flex-wrap items-center gap-6">
+          <KbdCombo keys={["Ctrl", "K"]} />
+          <KbdCombo keys={["Shift", "Enter"]} />
+          <KbdCombo keys={["\u2318", "C"]} />
+          <KbdCombo keys={["Ctrl", "Shift", "P"]} />
+        </div>
+      </div>
+
+      {/* Single keys */}
+      <div>
+        <p className="mb-3 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Single Keys</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <KbdKey>Esc</KbdKey>
+          <KbdKey>Tab</KbdKey>
+          <KbdKey>Space</KbdKey>
+          <KbdKey>Enter</KbdKey>
+          <KbdKey>F1</KbdKey>
+          <KbdKey>Delete</KbdKey>
+        </div>
+      </div>
+
+      {/* Labeled shortcuts */}
+      <div>
+        <p className="mb-3 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Labeled Shortcuts</p>
+        <div className="flex flex-wrap items-center gap-6">
+          <KbdCombo keys={["\u2318", "K"]} label="Search" />
+          <KbdCombo keys={["Ctrl", "S"]} label="Save" />
+          <KbdCombo keys={["Ctrl", "Z"]} label="Undo" />
+          <KbdCombo keys={["Alt", "F4"]} label="Close" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function KbdPage() {
   return (
@@ -11,6 +78,17 @@ export default function KbdPage() {
           Displays keyboard shortcut indicators with styled key caps. Useful for showing hotkeys, shortcuts, and key combinations.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          Interactive keyboard shortcut display with key combinations, single keys, and labeled shortcuts.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <KbdLiveDemo />
+        </div>
+      </section>
 
       {/* Installation */}
       <div>
@@ -44,7 +122,7 @@ export default function KbdPage() {
               <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">Enter</kbd>
             </div>
             <div className="flex items-center gap-1">
-              <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">⌘</kbd>
+              <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">{"\u2318"}</kbd>
               <span className="text-xs text-[rgb(var(--trinkui-muted))]">+</span>
               <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">S</kbd>
             </div>
@@ -88,7 +166,7 @@ export default function KbdPage() {
             <span className="flex items-center gap-2 text-sm text-[rgb(var(--trinkui-muted))]">
               Search
               <span className="flex items-center gap-1">
-                <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">⌘</kbd>
+                <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">{"\u2318"}</kbd>
                 <span className="text-xs text-[rgb(var(--trinkui-muted))]">+</span>
                 <kbd className="inline-flex h-7 min-w-7 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-2 text-xs font-medium text-[rgb(var(--trinkui-fg))] shadow-[0_1px_0_1px_rgb(var(--trinkui-border))]">K</kbd>
               </span>

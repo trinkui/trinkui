@@ -1,3 +1,95 @@
+"use client";
+
+function BreadcrumbDemo() {
+  const items = [
+    { label: "Home", href: "#" },
+    { label: "Products", href: "#" },
+    { label: "Electronics", href: "#" },
+    { label: "Phones" },
+  ];
+
+  return (
+    <nav aria-label="Breadcrumb">
+      <ol className="flex items-center gap-1.5 text-sm">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={item.label} className="flex items-center gap-1.5">
+              {index > 0 && (
+                <svg
+                  className="h-3.5 w-3.5 text-[rgb(var(--trinkui-muted))]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              )}
+              {isLast ? (
+                <span
+                  className="font-semibold text-[rgb(var(--trinkui-fg))]"
+                  aria-current="page"
+                >
+                  {item.label}
+                </span>
+              ) : (
+                <a
+                  href={item.href}
+                  className="text-[rgb(var(--trinkui-muted))] transition-colors hover:text-[rgb(var(--trinkui-primary))]"
+                >
+                  {item.label}
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
+function BreadcrumbSlashDemo() {
+  const items = [
+    { label: "Dashboard", href: "#" },
+    { label: "Settings", href: "#" },
+    { label: "Profile" },
+  ];
+
+  return (
+    <nav aria-label="Breadcrumb">
+      <ol className="flex items-center gap-2 text-sm">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={item.label} className="flex items-center gap-2">
+              {index > 0 && (
+                <span className="text-[rgb(var(--trinkui-muted))]" aria-hidden="true">/</span>
+              )}
+              {isLast ? (
+                <span
+                  className="font-semibold text-[rgb(var(--trinkui-fg))]"
+                  aria-current="page"
+                >
+                  {item.label}
+                </span>
+              ) : (
+                <a
+                  href={item.href}
+                  className="text-[rgb(var(--trinkui-muted))] transition-colors hover:text-[rgb(var(--trinkui-primary))]"
+                >
+                  {item.label}
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
 export default function BreadcrumbsPage() {
   return (
     <div className="space-y-10">
@@ -9,6 +101,26 @@ export default function BreadcrumbsPage() {
           A navigational aid that shows the user their current location within a page hierarchy. Supports custom separators and multiple sizes.
         </p>
       </div>
+
+      {/* Live Demo: Chevron Separator */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          Breadcrumb trail with chevron separators. The last item is highlighted as the current page.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="space-y-6">
+            <div>
+              <p className="mb-2 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Chevron separator</p>
+              <BreadcrumbDemo />
+            </div>
+            <div>
+              <p className="mb-2 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Slash separator</p>
+              <BreadcrumbSlashDemo />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

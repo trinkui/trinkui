@@ -1,4 +1,50 @@
+"use client";
+
+import { useState } from "react";
+
+function InfoIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+function CheckCircleIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+function WarningIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+      <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+function DangerIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+      <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+    </svg>
+  );
+}
+
 export default function AlertPage() {
+  const [showDismissible, setShowDismissible] = useState(true);
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -9,6 +55,75 @@ export default function AlertPage() {
           Contextual feedback messages for user actions. Supports info, success, warning, and danger variants with optional dismiss functionality.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Demo</h2>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="space-y-4">
+            {/* Info Alert */}
+            <div className="flex items-start gap-3 rounded-lg border-l-4 border-[rgb(var(--trinkui-info))] bg-[rgb(var(--trinkui-info)/0.08)] px-4 py-3">
+              <span className="mt-0.5 shrink-0 text-[rgb(var(--trinkui-info))]"><InfoIcon /></span>
+              <div>
+                <p className="font-semibold text-[rgb(var(--trinkui-fg))]">Update available</p>
+                <p className="mt-1 text-sm text-[rgb(var(--trinkui-muted))]">A new version is available. Please update to get the latest features.</p>
+              </div>
+            </div>
+
+            {/* Success Alert */}
+            <div className="flex items-start gap-3 rounded-lg border-l-4 border-[rgb(var(--trinkui-success))] bg-[rgb(var(--trinkui-success)/0.08)] px-4 py-3">
+              <span className="mt-0.5 shrink-0 text-[rgb(var(--trinkui-success))]"><CheckCircleIcon /></span>
+              <div>
+                <p className="font-semibold text-[rgb(var(--trinkui-fg))]">Success</p>
+                <p className="mt-1 text-sm text-[rgb(var(--trinkui-muted))]">Your changes have been saved successfully.</p>
+              </div>
+            </div>
+
+            {/* Warning Alert */}
+            <div className="flex items-start gap-3 rounded-lg border-l-4 border-[rgb(var(--trinkui-warning))] bg-[rgb(var(--trinkui-warning)/0.08)] px-4 py-3">
+              <span className="mt-0.5 shrink-0 text-[rgb(var(--trinkui-warning))]"><WarningIcon /></span>
+              <div>
+                <p className="font-semibold text-[rgb(var(--trinkui-fg))]">Warning</p>
+                <p className="mt-1 text-sm text-[rgb(var(--trinkui-muted))]">Your session will expire in 5 minutes.</p>
+              </div>
+            </div>
+
+            {/* Danger Alert */}
+            <div className="flex items-start gap-3 rounded-lg border-l-4 border-[rgb(var(--trinkui-danger))] bg-[rgb(var(--trinkui-danger)/0.08)] px-4 py-3">
+              <span className="mt-0.5 shrink-0 text-[rgb(var(--trinkui-danger))]"><DangerIcon /></span>
+              <div>
+                <p className="font-semibold text-[rgb(var(--trinkui-fg))]">Error</p>
+                <p className="mt-1 text-sm text-[rgb(var(--trinkui-muted))]">Failed to save changes. Please try again.</p>
+              </div>
+            </div>
+
+            {/* Dismissible Alert */}
+            {showDismissible ? (
+              <div className="flex items-start gap-3 rounded-lg border-l-4 border-[rgb(var(--trinkui-success))] bg-[rgb(var(--trinkui-success)/0.08)] px-4 py-3">
+                <span className="mt-0.5 shrink-0 text-[rgb(var(--trinkui-success))]"><CheckCircleIcon /></span>
+                <div className="flex-1">
+                  <p className="font-semibold text-[rgb(var(--trinkui-fg))]">Dismissible</p>
+                  <p className="mt-1 text-sm text-[rgb(var(--trinkui-muted))]">Click the X button to dismiss this alert.</p>
+                </div>
+                <button
+                  onClick={() => setShowDismissible(false)}
+                  className="shrink-0 rounded p-1 text-[rgb(var(--trinkui-muted))] transition-colors hover:bg-[rgb(var(--trinkui-border)/0.3)] hover:text-[rgb(var(--trinkui-fg))]"
+                  aria-label="Dismiss alert"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowDismissible(true)}
+                className="rounded-lg border border-dashed border-[rgb(var(--trinkui-border))] px-4 py-3 text-sm text-[rgb(var(--trinkui-muted))] transition-colors hover:border-[rgb(var(--trinkui-primary))] hover:text-[rgb(var(--trinkui-primary))]"
+              >
+                Show dismissible alert again
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

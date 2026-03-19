@@ -12,7 +12,7 @@ export default function Example() {
         { label: "Terms", href: "/terms" },
       ]}
       socialLinks={[
-        { label: "GitHub", href: "https://github.com/trinkui" },
+        { label: "GitHub", href: "https://github.com/trinkui/trinkui" },
         { label: "Twitter", href: "https://twitter.com/trinkui" },
       ]}
       copyright="© 2024 TrinkUI. All rights reserved."
@@ -89,7 +89,7 @@ export default function FooterSimplePage() {
               { label: "Terms", href: "/terms" },
             ]}
             socialLinks={[
-              { label: "GitHub", href: "https://github.com/trinkui" },
+              { label: "GitHub", href: "https://github.com/trinkui/trinkui" },
               { label: "Twitter", href: "https://twitter.com/trinkui" },
             ]}
             copyright="© 2024 TrinkUI. All rights reserved."

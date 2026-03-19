@@ -1,4 +1,107 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+
+function DropdownDemo() {
+  const [open, setOpen] = useState(false);
+  const [lastAction, setLastAction] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleAction = (action: string) => {
+    setLastAction(action);
+    setOpen(false);
+  };
+
+  return (
+    <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+      <p className="mb-3 text-sm font-medium text-[rgb(var(--trinkui-fg))]">Interactive Dropdown</p>
+      <div className="relative inline-block" ref={ref}>
+        <button
+          onClick={() => setOpen(!open)}
+          className="inline-flex items-center gap-2 rounded-[var(--trinkui-radius-md)] bg-[rgb(var(--trinkui-primary))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-primary-fg))] transition-colors hover:opacity-90"
+          aria-expanded={open}
+          aria-haspopup="menu"
+        >
+          Actions
+          <svg
+            className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        {open && (
+          <div
+            role="menu"
+            className="absolute left-0 z-10 mt-2 w-48 rounded-[var(--trinkui-radius-lg)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] py-1 shadow-[var(--trinkui-shadow-lg)]"
+          >
+            <button
+              role="menuitem"
+              onClick={() => handleAction("Edit")}
+              className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))]"
+            >
+              <svg className="h-4 w-4 text-[rgb(var(--trinkui-muted))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Edit
+            </button>
+            <button
+              role="menuitem"
+              onClick={() => handleAction("Duplicate")}
+              className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))]"
+            >
+              <svg className="h-4 w-4 text-[rgb(var(--trinkui-muted))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              Duplicate
+            </button>
+            <button
+              role="menuitem"
+              onClick={() => handleAction("Archive")}
+              className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))]"
+            >
+              <svg className="h-4 w-4 text-[rgb(var(--trinkui-muted))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+              </svg>
+              Archive
+            </button>
+            <div className="my-1 border-t border-[rgb(var(--trinkui-border))]" />
+            <button
+              role="menuitem"
+              onClick={() => handleAction("Delete")}
+              className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[rgb(var(--trinkui-danger))] transition-colors hover:bg-[rgb(var(--trinkui-danger)/0.1)]"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
+      {lastAction && (
+        <p className="mt-3 text-xs text-[rgb(var(--trinkui-muted))]">
+          Last action: <span className="font-medium text-[rgb(var(--trinkui-primary))]">{lastAction}</span>
+        </p>
+      )}
+    </div>
+  );
+}
 
 export default function DropdownPage() {
   return (
@@ -10,6 +113,12 @@ export default function DropdownPage() {
         <p className="mt-2 text-[rgb(var(--trinkui-muted))]">
           Contextual menu triggered by a button or other element. Displays a list of actions, links, or options in a floating panel.
         </p>
+      </div>
+
+      {/* Live Demo */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <DropdownDemo />
       </div>
 
       {/* Installation */}

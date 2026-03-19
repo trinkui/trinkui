@@ -1,4 +1,109 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
+
+function DrawerDemo() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    function handleEsc(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    if (open) {
+      document.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+      <p className="mb-3 text-sm font-medium text-[rgb(var(--trinkui-fg))]">Interactive Drawer</p>
+      <button
+        onClick={() => setOpen(true)}
+        className="rounded-[var(--trinkui-radius-md)] bg-[rgb(var(--trinkui-primary))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-primary-fg))] transition-colors hover:opacity-90"
+      >
+        Open Drawer
+      </button>
+
+      {/* Backdrop + Drawer */}
+      {open && (
+        <div className="fixed inset-0 z-50">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 transition-opacity"
+            onClick={() => setOpen(false)}
+          />
+          {/* Drawer panel */}
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Demo drawer"
+            className="absolute bottom-0 right-0 top-0 w-80 border-l border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] shadow-lg"
+            style={{
+              animation: "slideInRight 0.25s ease-out",
+            }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-[rgb(var(--trinkui-border))] px-5 py-4">
+              <h3 className="text-base font-semibold text-[rgb(var(--trinkui-fg))]">Drawer Title</h3>
+              <button
+                onClick={() => setOpen(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-[var(--trinkui-radius-md)] text-[rgb(var(--trinkui-muted))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))] hover:text-[rgb(var(--trinkui-fg))]"
+                aria-label="Close drawer"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            {/* Body */}
+            <div className="px-5 py-4">
+              <p className="text-sm text-[rgb(var(--trinkui-muted))]">
+                This is a live drawer demo. It slides in from the right side of the screen with a dark backdrop overlay.
+              </p>
+              <p className="mt-3 text-sm text-[rgb(var(--trinkui-muted))]">
+                Click the backdrop, press Escape, or click the close button to dismiss.
+              </p>
+              <div className="mt-6 rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-3">
+                <p className="text-xs font-medium text-[rgb(var(--trinkui-fg))]">Drawer Content</p>
+                <p className="mt-1 text-xs text-[rgb(var(--trinkui-muted))]">
+                  Place any content here: forms, navigation, details, etc.
+                </p>
+              </div>
+            </div>
+            {/* Footer */}
+            <div className="absolute bottom-0 left-0 right-0 flex gap-2 border-t border-[rgb(var(--trinkui-border))] px-5 py-4">
+              <button
+                onClick={() => setOpen(false)}
+                className="rounded-[var(--trinkui-radius-md)] bg-[rgb(var(--trinkui-primary))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-primary-fg))]"
+              >
+                Confirm
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                className="rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes slideInRight {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
 
 export default function DrawerPage() {
   return (
@@ -10,6 +115,12 @@ export default function DrawerPage() {
         <p className="mt-2 text-[rgb(var(--trinkui-muted))]">
           Sliding panel that overlays the page from any edge. Ideal for navigation menus, filters, detail views, and form sidebars.
         </p>
+      </div>
+
+      {/* Live Demo */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <DrawerDemo />
       </div>
 
       {/* Installation */}

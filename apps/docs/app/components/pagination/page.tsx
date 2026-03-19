@@ -1,4 +1,123 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+
+function PaginationFlatDemo() {
+  const [activePage, setActivePage] = useState(1);
+  const totalPages = 10;
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    pages.push(1);
+    if (activePage > 3) pages.push("...");
+    for (let i = Math.max(2, activePage - 1); i <= Math.min(totalPages - 1, activePage + 1); i++) {
+      pages.push(i);
+    }
+    if (activePage < totalPages - 2) pages.push("...");
+    if (totalPages > 1) pages.push(totalPages);
+    return pages;
+  };
+
+  return (
+    <nav className="flex items-center gap-1" aria-label="Pagination">
+      <button
+        onClick={() => setActivePage((p) => Math.max(1, p - 1))}
+        disabled={activePage === 1}
+        className="flex h-9 w-9 items-center justify-center rounded-[var(--trinkui-radius-md)] text-sm text-[rgb(var(--trinkui-muted))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))] disabled:opacity-40 disabled:cursor-not-allowed"
+        aria-label="Previous page"
+      >
+        &larr;
+      </button>
+      {getPageNumbers().map((page, i) =>
+        page === "..." ? (
+          <span key={`ellipsis-${i}`} className="flex h-9 w-9 items-center justify-center text-sm text-[rgb(var(--trinkui-muted))]">
+            ...
+          </span>
+        ) : (
+          <button
+            key={page}
+            onClick={() => setActivePage(page as number)}
+            aria-current={activePage === page ? "page" : undefined}
+            className={`flex h-9 w-9 items-center justify-center rounded-[var(--trinkui-radius-md)] text-sm transition-colors ${
+              activePage === page
+                ? "bg-[rgb(var(--trinkui-primary))] font-medium text-[rgb(var(--trinkui-primary-fg))]"
+                : "text-[rgb(var(--trinkui-muted))] hover:bg-[rgb(var(--trinkui-secondary))]"
+            }`}
+          >
+            {page}
+          </button>
+        )
+      )}
+      <button
+        onClick={() => setActivePage((p) => Math.min(totalPages, p + 1))}
+        disabled={activePage === totalPages}
+        className="flex h-9 w-9 items-center justify-center rounded-[var(--trinkui-radius-md)] text-sm text-[rgb(var(--trinkui-muted))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))] disabled:opacity-40 disabled:cursor-not-allowed"
+        aria-label="Next page"
+      >
+        &rarr;
+      </button>
+    </nav>
+  );
+}
+
+function PaginationBorderedDemo() {
+  const [activePage, setActivePage] = useState(1);
+  const totalPages = 10;
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    pages.push(1);
+    if (activePage > 3) pages.push("...");
+    for (let i = Math.max(2, activePage - 1); i <= Math.min(totalPages - 1, activePage + 1); i++) {
+      pages.push(i);
+    }
+    if (activePage < totalPages - 2) pages.push("...");
+    if (totalPages > 1) pages.push(totalPages);
+    return pages;
+  };
+
+  return (
+    <nav className="flex items-center gap-1" aria-label="Bordered pagination">
+      <button
+        onClick={() => setActivePage((p) => Math.max(1, p - 1))}
+        disabled={activePage === 1}
+        className="flex h-9 w-9 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] text-sm text-[rgb(var(--trinkui-muted))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))] disabled:opacity-40 disabled:cursor-not-allowed"
+        aria-label="Previous page"
+      >
+        &larr;
+      </button>
+      {getPageNumbers().map((page, i) =>
+        page === "..." ? (
+          <span key={`ellipsis-${i}`} className="flex h-9 w-9 items-center justify-center text-sm text-[rgb(var(--trinkui-muted))]">
+            ...
+          </span>
+        ) : (
+          <button
+            key={page}
+            onClick={() => setActivePage(page as number)}
+            aria-current={activePage === page ? "page" : undefined}
+            className={`flex h-9 w-9 items-center justify-center rounded-[var(--trinkui-radius-md)] text-sm transition-colors ${
+              activePage === page
+                ? "border-2 border-[rgb(var(--trinkui-primary))] font-medium text-[rgb(var(--trinkui-primary))]"
+                : "border border-[rgb(var(--trinkui-border))] text-[rgb(var(--trinkui-muted))] hover:bg-[rgb(var(--trinkui-secondary))]"
+            }`}
+          >
+            {page}
+          </button>
+        )
+      )}
+      <button
+        onClick={() => setActivePage((p) => Math.min(totalPages, p + 1))}
+        disabled={activePage === totalPages}
+        className="flex h-9 w-9 items-center justify-center rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] text-sm text-[rgb(var(--trinkui-muted))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))] disabled:opacity-40 disabled:cursor-not-allowed"
+        aria-label="Next page"
+      >
+        &rarr;
+      </button>
+    </nav>
+  );
+}
 
 export default function PaginationPage() {
   return (
@@ -11,6 +130,32 @@ export default function PaginationPage() {
           Page navigation component for splitting content across multiple pages. Supports boundaries, sibling count, and navigation controls.
         </p>
       </div>
+
+      {/* Live Demo: Flat Variant */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo - Flat</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          Click page numbers or arrows to navigate. Active page is highlighted with a filled background. Ellipsis appears for page gaps.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="flex justify-center">
+            <PaginationFlatDemo />
+          </div>
+        </div>
+      </section>
+
+      {/* Live Demo: Bordered Variant */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo - Bordered</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          Bordered variant uses outlined buttons with a primary border on the active page.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="flex justify-center">
+            <PaginationBorderedDemo />
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <div>

@@ -1,4 +1,107 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+
+function ChipLiveDemo() {
+  const [dismissed, setDismissed] = useState(false);
+
+  return (
+    <div className="space-y-6">
+      {/* Solid Chips */}
+      <div>
+        <p className="mb-3 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Solid Chips</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-primary))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-primary-fg))]">
+            Primary
+          </span>
+          <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-success))] px-3 py-1 text-xs font-medium text-white">
+            Success
+          </span>
+          <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-warning))] px-3 py-1 text-xs font-medium text-white">
+            Warning
+          </span>
+          <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-danger))] px-3 py-1 text-xs font-medium text-white">
+            Danger
+          </span>
+        </div>
+      </div>
+
+      {/* Bordered Chips */}
+      <div>
+        <p className="mb-3 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Bordered Chips</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center rounded-full border border-[rgb(var(--trinkui-primary))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-primary))]">
+            Primary
+          </span>
+          <span className="inline-flex items-center rounded-full border border-[rgb(var(--trinkui-success))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-success))]">
+            Success
+          </span>
+          <span className="inline-flex items-center rounded-full border border-[rgb(var(--trinkui-warning))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-warning))]">
+            Warning
+          </span>
+          <span className="inline-flex items-center rounded-full border border-[rgb(var(--trinkui-danger))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-danger))]">
+            Danger
+          </span>
+        </div>
+      </div>
+
+      {/* Dot Indicator Chips */}
+      <div>
+        <p className="mb-3 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Dot Indicator</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgb(var(--trinkui-border))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-fg))]">
+            <span className="h-2 w-2 rounded-full bg-[rgb(var(--trinkui-primary))]" />
+            Active
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgb(var(--trinkui-border))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-fg))]">
+            <span className="h-2 w-2 rounded-full bg-[rgb(var(--trinkui-success))]" />
+            Online
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgb(var(--trinkui-border))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-fg))]">
+            <span className="h-2 w-2 rounded-full bg-[rgb(var(--trinkui-warning))]" />
+            Away
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgb(var(--trinkui-border))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-fg))]">
+            <span className="h-2 w-2 rounded-full bg-[rgb(var(--trinkui-danger))]" />
+            Offline
+          </span>
+        </div>
+      </div>
+
+      {/* Dismissible Chip */}
+      <div>
+        <p className="mb-3 text-xs font-medium text-[rgb(var(--trinkui-muted))]">Dismissible</p>
+        <div className="flex flex-wrap items-center gap-3">
+          {!dismissed ? (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[rgb(var(--trinkui-primary))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-primary-fg))]">
+              Click X to dismiss
+              <button
+                onClick={() => setDismissed(true)}
+                className="ml-0.5 rounded-full p-0.5 transition-colors hover:bg-white/20"
+                aria-label="Dismiss"
+              >
+                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </span>
+          ) : (
+            <button
+              onClick={() => setDismissed(false)}
+              className="text-xs text-[rgb(var(--trinkui-primary))] hover:underline"
+            >
+              Reset dismissed chip
+            </button>
+          )}
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[rgb(var(--trinkui-success))] px-3 py-1 text-xs font-medium text-white">
+            Permanent
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ChipPage() {
   return (
@@ -11,6 +114,17 @@ export default function ChipPage() {
           Compact element for displaying tags, filters, or status indicators. Supports multiple variants, colors, and optional dismiss action.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          Solid, bordered, dot indicator, and dismissible chip variants.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <ChipLiveDemo />
+        </div>
+      </section>
 
       {/* Installation */}
       <div>
@@ -83,9 +197,9 @@ export default function ChipPage() {
             <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-secondary))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-secondary-fg))]">Default</span>
             <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-primary))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-primary-fg))]">Primary</span>
             <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-secondary))] px-3 py-1 text-xs font-medium text-[rgb(var(--trinkui-secondary-fg))]">Secondary</span>
-            <span className="inline-flex items-center rounded-full bg-emerald-500 px-3 py-1 text-xs font-medium text-white">Success</span>
-            <span className="inline-flex items-center rounded-full bg-amber-500 px-3 py-1 text-xs font-medium text-white">Warning</span>
-            <span className="inline-flex items-center rounded-full bg-red-500 px-3 py-1 text-xs font-medium text-white">Danger</span>
+            <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-success))] px-3 py-1 text-xs font-medium text-white">Success</span>
+            <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-warning))] px-3 py-1 text-xs font-medium text-white">Warning</span>
+            <span className="inline-flex items-center rounded-full bg-[rgb(var(--trinkui-danger))] px-3 py-1 text-xs font-medium text-white">Danger</span>
           </div>
           <div className="border-t border-[rgb(var(--trinkui-border))]">
             <pre className="overflow-x-auto px-4 py-3 text-sm text-slate-200 bg-[#0d1117] rounded-b-[var(--trinkui-radius-lg)]">

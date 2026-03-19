@@ -1,4 +1,154 @@
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+
+interface ToastData {
+  id: number;
+  title: string;
+  description: string;
+  variant: "default" | "success" | "warning" | "danger";
+}
+
+function ToastDemo() {
+  const [toasts, setToasts] = useState<ToastData[]>([]);
+  const [nextId, setNextId] = useState(0);
+
+  const removeToast = useCallback((id: number) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
+
+  const addToast = (variant: ToastData["variant"]) => {
+    const messages: Record<ToastData["variant"], { title: string; description: string }> = {
+      default: { title: "Notification", description: "This is a default notification message." },
+      success: { title: "Success", description: "Operation completed successfully." },
+      warning: { title: "Warning", description: "Please review before continuing." },
+      danger: { title: "Error", description: "Something went wrong. Please try again." },
+    };
+
+    const id = nextId;
+    setNextId((n) => n + 1);
+    setToasts((prev) => [...prev, { id, ...messages[variant], variant }]);
+  };
+
+  useEffect(() => {
+    if (toasts.length === 0) return;
+    const latest = toasts[toasts.length - 1] as ToastData;
+    const timer = setTimeout(() => removeToast(latest.id), 3000);
+    return () => clearTimeout(timer);
+  }, [toasts, removeToast]);
+
+  const variantStyles: Record<ToastData["variant"], { border: string; bg: string; title: string; desc: string; icon: React.ReactNode }> = {
+    default: {
+      border: "border-[rgb(var(--trinkui-border))]",
+      bg: "bg-[rgb(var(--trinkui-surface))]",
+      title: "text-[rgb(var(--trinkui-fg))]",
+      desc: "text-[rgb(var(--trinkui-muted))]",
+      icon: null,
+    },
+    success: {
+      border: "border-emerald-500/30",
+      bg: "bg-emerald-500/10",
+      title: "text-emerald-500",
+      desc: "text-emerald-400/80",
+      icon: (
+        <svg className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+    warning: {
+      border: "border-amber-500/30",
+      bg: "bg-amber-500/10",
+      title: "text-amber-500",
+      desc: "text-amber-400/80",
+      icon: (
+        <svg className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      ),
+    },
+    danger: {
+      border: "border-red-500/30",
+      bg: "bg-red-500/10",
+      title: "text-red-500",
+      desc: "text-red-400/80",
+      icon: (
+        <svg className="mt-0.5 h-5 w-5 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+    },
+  };
+
+  return (
+    <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+      <p className="mb-3 text-sm font-medium text-[rgb(var(--trinkui-fg))]">Interactive Toasts (auto-dismiss after 3s)</p>
+      <div className="flex flex-wrap gap-2">
+        <button
+          onClick={() => addToast("default")}
+          className="rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-secondary))]"
+        >
+          Default Toast
+        </button>
+        <button
+          onClick={() => addToast("success")}
+          className="rounded-[var(--trinkui-radius-md)] bg-emerald-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-600"
+        >
+          Success
+        </button>
+        <button
+          onClick={() => addToast("warning")}
+          className="rounded-[var(--trinkui-radius-md)] bg-amber-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-amber-600"
+        >
+          Warning
+        </button>
+        <button
+          onClick={() => addToast("danger")}
+          className="rounded-[var(--trinkui-radius-md)] bg-red-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-600"
+        >
+          Error
+        </button>
+      </div>
+
+      {/* Toast container - fixed bottom-right */}
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2" role="status" aria-live="polite">
+        {toasts.map((toast) => {
+          const styles = variantStyles[toast.variant];
+          return (
+            <div
+              key={toast.id}
+              className={`flex w-80 items-start gap-3 rounded-[var(--trinkui-radius-lg)] border p-4 shadow-[var(--trinkui-shadow-lg)] ${styles.border} ${styles.bg}`}
+              style={{ animation: "slideInToast 0.2s ease-out" }}
+            >
+              {styles.icon}
+              <div className="flex-1">
+                <p className={`text-sm font-medium ${styles.title}`}>{toast.title}</p>
+                <p className={`mt-0.5 text-xs ${styles.desc}`}>{toast.description}</p>
+              </div>
+              <button
+                onClick={() => removeToast(toast.id)}
+                className="text-[rgb(var(--trinkui-muted))] hover:text-[rgb(var(--trinkui-fg))]"
+                aria-label="Dismiss"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      <style>{`
+        @keyframes slideInToast {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+      `}</style>
+    </div>
+  );
+}
 
 export default function ToastPage() {
   return (
@@ -10,6 +160,12 @@ export default function ToastPage() {
         <p className="mt-2 text-[rgb(var(--trinkui-muted))]">
           Non-intrusive notification system for displaying brief messages. Supports multiple variants, auto-dismiss, and a hook-based API via ToastProvider.
         </p>
+      </div>
+
+      {/* Live Demo */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <ToastDemo />
       </div>
 
       {/* Installation */}

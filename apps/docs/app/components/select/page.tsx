@@ -1,4 +1,86 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+
+function SelectDemo() {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+
+  const options = ["React", "Vue", "Angular", "Svelte"];
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+      <p className="mb-3 text-sm font-medium text-[rgb(var(--trinkui-fg))]">Interactive Select</p>
+      <div className="max-w-xs" ref={ref}>
+        <label className="mb-1.5 block text-sm font-medium text-[rgb(var(--trinkui-fg))]">Framework</label>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="flex w-full items-center justify-between rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] px-3 py-2 text-sm text-left outline-none transition-colors focus:border-[rgb(var(--trinkui-primary))] focus:ring-2 focus:ring-[rgb(var(--trinkui-primary)/0.3)]"
+            aria-expanded={open}
+            aria-haspopup="listbox"
+          >
+            <span className={selected ? "text-[rgb(var(--trinkui-fg))]" : "text-[rgb(var(--trinkui-muted))]"}>
+              {selected || "Select a framework"}
+            </span>
+            <svg
+              className={`h-4 w-4 text-[rgb(var(--trinkui-muted))] transition-transform ${open ? "rotate-180" : ""}`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {open && (
+            <ul
+              role="listbox"
+              className="absolute z-10 mt-1 w-full rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] py-1 shadow-[var(--trinkui-shadow-lg)]"
+            >
+              {options.map((option) => (
+                <li
+                  key={option}
+                  role="option"
+                  aria-selected={selected === option}
+                  className={`cursor-pointer px-3 py-2 text-sm transition-colors hover:bg-[rgb(var(--trinkui-secondary))] ${
+                    selected === option
+                      ? "text-[rgb(var(--trinkui-primary))] font-medium"
+                      : "text-[rgb(var(--trinkui-fg))]"
+                  }`}
+                  onClick={() => {
+                    setSelected(option);
+                    setOpen(false);
+                  }}
+                >
+                  {option}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        {selected && (
+          <p className="mt-2 text-xs text-[rgb(var(--trinkui-muted))]">
+            Selected: <span className="font-medium text-[rgb(var(--trinkui-primary))]">{selected}</span>
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function SelectPage() {
   return (
@@ -10,6 +92,12 @@ export default function SelectPage() {
         <p className="mt-2 text-[rgb(var(--trinkui-muted))]">
           Dropdown select input for choosing a single value from a list of options. Supports label, placeholder, error state, and multiple visual variants.
         </p>
+      </div>
+
+      {/* Live Demo */}
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <SelectDemo />
       </div>
 
       {/* Installation */}

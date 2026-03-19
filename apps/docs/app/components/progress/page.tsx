@@ -1,3 +1,32 @@
+"use client";
+
+function ProgressBar({ value, color, label, showValue }: { value: number; color: string; label?: string; showValue?: boolean }) {
+  const colorMap: Record<string, string> = {
+    primary: "rgb(var(--trinkui-primary))",
+    success: "rgb(var(--trinkui-success))",
+    warning: "rgb(var(--trinkui-warning))",
+    danger: "rgb(var(--trinkui-danger))",
+  };
+  const fillColor = colorMap[color] || colorMap.primary;
+
+  return (
+    <div className="w-full">
+      {(label || showValue) && (
+        <div className="mb-1.5 flex items-center justify-between text-sm">
+          {label && <span className="text-[rgb(var(--trinkui-fg))]">{label}</span>}
+          {showValue && <span className="text-[rgb(var(--trinkui-muted))]">{value}%</span>}
+        </div>
+      )}
+      <div className="h-2.5 w-full overflow-hidden rounded-full bg-[rgb(var(--trinkui-secondary))]">
+        <div
+          className="h-full rounded-full transition-all duration-500"
+          style={{ width: `${value}%`, backgroundColor: fillColor }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function ProgressPage() {
   return (
     <div className="space-y-10">
@@ -9,6 +38,22 @@ export default function ProgressPage() {
           A progress bar that visually indicates the completion status of a task or process. Supports sizes, colors, labels, and striped/animated styles.
         </p>
       </div>
+
+      {/* Live Demo: Progress Bars */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Live Demo</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          Progress bars at different values and colors.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="space-y-5">
+            <ProgressBar value={25} color="primary" label="Upload" showValue />
+            <ProgressBar value={50} color="success" label="Processing" showValue />
+            <ProgressBar value={75} color="warning" label="Storage" showValue />
+            <ProgressBar value={100} color="danger" label="Disk Usage" showValue />
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

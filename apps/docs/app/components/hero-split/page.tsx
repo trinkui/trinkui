@@ -11,7 +11,7 @@ export default function Example() {
       title="The modern way to build landing pages"
       subtitle="Ship faster with production-ready components built for React."
       primaryAction={{ label: "Get Started", href: "/docs" }}
-      secondaryAction={{ label: "View on GitHub", href: "https://github.com/trinkui", variant: "outline" }}
+      secondaryAction={{ label: "View on GitHub", href: "https://github.com/trinkui/trinkui", variant: "outline" }}
       image={{ src: "/product.png", alt: "Product screenshot" }}
     />
   );

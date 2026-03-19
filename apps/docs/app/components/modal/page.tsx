@@ -1,4 +1,19 @@
+"use client";
+
+import { useState, useEffect } from "react";
+
 export default function ModalPage() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isOpen]);
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -9,6 +24,73 @@ export default function ModalPage() {
           A dialog overlay that demands user attention. Supports multiple sizes, backdrop dismiss, and focus trapping for accessible modal interactions.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Demo</h2>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="rounded-lg bg-[rgb(var(--trinkui-primary))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-primary-fg))] transition-opacity hover:opacity-90"
+          >
+            Open Modal
+          </button>
+
+          {isOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              {/* Backdrop */}
+              <div
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => setIsOpen(false)}
+              />
+              {/* Modal card */}
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="demo-modal-title"
+                className="relative z-10 mx-4 w-full max-w-md rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] shadow-xl"
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-[rgb(var(--trinkui-border))] px-6 py-4">
+                  <h3 id="demo-modal-title" className="text-lg font-semibold text-[rgb(var(--trinkui-fg))]">
+                    Confirm Action
+                  </h3>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="rounded p-1 text-[rgb(var(--trinkui-muted))] transition-colors hover:bg-[rgb(var(--trinkui-border)/0.3)] hover:text-[rgb(var(--trinkui-fg))]"
+                    aria-label="Close modal"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                      <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                    </svg>
+                  </button>
+                </div>
+                {/* Body */}
+                <div className="px-6 py-4">
+                  <p className="text-sm text-[rgb(var(--trinkui-muted))]">
+                    Are you sure you want to proceed? This action cannot be undone. All associated data will be permanently removed.
+                  </p>
+                </div>
+                {/* Footer */}
+                <div className="flex justify-end gap-3 border-t border-[rgb(var(--trinkui-border))] px-6 py-4">
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="rounded-lg border border-[rgb(var(--trinkui-border))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-border)/0.2)]"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="rounded-lg bg-[rgb(var(--trinkui-primary))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-primary-fg))] transition-opacity hover:opacity-90"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

@@ -13,7 +13,7 @@ export default function Example() {
       primaryAction={{ label: "Get Started", href: "/docs" }}
       secondaryAction={{
         label: "GitHub",
-        href: "https://github.com/trinkui",
+        href: "https://github.com/trinkui/trinkui",
         variant: "outline",
         target: "_blank",
       }}

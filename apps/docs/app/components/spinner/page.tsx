@@ -1,3 +1,5 @@
+"use client";
+
 export default function SpinnerPage() {
   return (
     <div className="space-y-10">
@@ -9,6 +11,69 @@ export default function SpinnerPage() {
           An animated loading indicator to communicate that content is being fetched or processed.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Demo</h2>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <div className="space-y-6">
+            {/* Sizes row */}
+            <div>
+              <p className="mb-4 text-xs font-medium uppercase tracking-wider text-[rgb(var(--trinkui-muted))]">Sizes</p>
+              <div className="flex items-center gap-8">
+                {/* sm */}
+                <div className="flex flex-col items-center gap-2">
+                  <div
+                    className="h-4 w-4 animate-spin rounded-full border-2 border-transparent border-t-[rgb(var(--trinkui-primary))]"
+                    role="status"
+                    aria-label="Loading"
+                  />
+                  <span className="text-xs text-[rgb(var(--trinkui-muted))]">sm</span>
+                </div>
+                {/* md */}
+                <div className="flex flex-col items-center gap-2">
+                  <div
+                    className="h-6 w-6 animate-spin rounded-full border-2 border-transparent border-t-[rgb(var(--trinkui-primary))]"
+                    role="status"
+                    aria-label="Loading"
+                  />
+                  <span className="text-xs text-[rgb(var(--trinkui-muted))]">md</span>
+                </div>
+                {/* lg */}
+                <div className="flex flex-col items-center gap-2">
+                  <div
+                    className="h-8 w-8 animate-spin rounded-full border-[3px] border-transparent border-t-[rgb(var(--trinkui-primary))]"
+                    role="status"
+                    aria-label="Loading"
+                  />
+                  <span className="text-xs text-[rgb(var(--trinkui-muted))]">lg</span>
+                </div>
+                {/* xl */}
+                <div className="flex flex-col items-center gap-2">
+                  <div
+                    className="h-12 w-12 animate-spin rounded-full border-4 border-transparent border-t-[rgb(var(--trinkui-primary))]"
+                    role="status"
+                    aria-label="Loading"
+                  />
+                  <span className="text-xs text-[rgb(var(--trinkui-muted))]">xl</span>
+                </div>
+              </div>
+            </div>
+
+            {/* With label */}
+            <div>
+              <p className="mb-4 text-xs font-medium uppercase tracking-wider text-[rgb(var(--trinkui-muted))]">With Label</p>
+              <div className="flex items-center gap-3">
+                <div
+                  className="h-5 w-5 animate-spin rounded-full border-2 border-transparent border-t-[rgb(var(--trinkui-primary))]"
+                  role="status"
+                />
+                <span className="text-sm text-[rgb(var(--trinkui-muted))]">Loading data...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

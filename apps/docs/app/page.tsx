@@ -462,7 +462,7 @@ export default function HomePage() {
           <div className="flex items-center gap-2">
             {/* GitHub */}
             <a
-              href="https://github.com/trinkui"
+              href="https://github.com/trinkui/trinkui"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-9 w-9 items-center justify-center rounded-lg text-[rgb(var(--trinkui-muted))] transition-colors hover:text-[rgb(var(--trinkui-fg))] hover:bg-[rgb(var(--trinkui-surface))]"
@@ -1178,7 +1178,7 @@ export default function HomePage() {
                 icon: icons.github,
                 title: "GitHub",
                 desc: "Report bugs, submit PRs, explore the source.",
-                href: "https://github.com/trinkui",
+                href: "https://github.com/trinkui/trinkui",
                 linkText: "Repository",
               },
               {
@@ -1250,7 +1250,7 @@ export default function HomePage() {
                 {icons.arrowRight}
               </Link>
               <a
-                href="https://github.com/trinkui"
+                href="https://github.com/trinkui/trinkui"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-8 py-4 text-sm font-medium text-[rgb(var(--trinkui-fg))] transition-all hover:border-[rgb(var(--trinkui-muted)/0.5)] hover:scale-[1.02] active:scale-[0.98]"
@@ -1349,7 +1349,7 @@ export default function HomePage() {
               </h4>
               <ul className="space-y-2.5">
                 {[
-                  { label: "GitHub", href: "https://github.com/trinkui" },
+                  { label: "GitHub", href: "https://github.com/trinkui/trinkui" },
                   { label: "Discord", href: "#" },
                   { label: "X", href: "#" },
                 ].map((link) => (

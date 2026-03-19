@@ -1,3 +1,5 @@
+"use client";
+
 export default function TooltipPage() {
   return (
     <div className="space-y-10">
@@ -9,6 +11,48 @@ export default function TooltipPage() {
           A lightweight popup that displays additional information when hovering or focusing on an element.
         </p>
       </div>
+
+      {/* Live Demo */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Demo</h2>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <p className="mb-4 text-xs font-medium uppercase tracking-wider text-[rgb(var(--trinkui-muted))]">Hover over the buttons to see tooltips</p>
+          <div className="flex flex-wrap items-center gap-6 pt-4 pb-2">
+            {/* Tooltip Top */}
+            <div className="group relative inline-block">
+              <button className="rounded-lg border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-border)/0.2)]">
+                Top
+              </button>
+              <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 rounded-md bg-[rgb(var(--trinkui-fg))] px-3 py-1.5 text-xs font-medium text-[rgb(var(--trinkui-bg))] opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                Tooltip on top
+                <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-[rgb(var(--trinkui-fg))]" />
+              </div>
+            </div>
+
+            {/* Tooltip Right */}
+            <div className="group relative inline-block">
+              <button className="rounded-lg border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-border)/0.2)]">
+                Right
+              </button>
+              <div className="pointer-events-none absolute left-full top-1/2 z-10 ml-2 -translate-y-1/2 rounded-md bg-[rgb(var(--trinkui-fg))] px-3 py-1.5 text-xs font-medium text-[rgb(var(--trinkui-bg))] opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                Tooltip on right
+                <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[rgb(var(--trinkui-fg))]" />
+              </div>
+            </div>
+
+            {/* Tooltip Bottom */}
+            <div className="group relative inline-block">
+              <button className="rounded-lg border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-surface))] px-4 py-2 text-sm font-medium text-[rgb(var(--trinkui-fg))] transition-colors hover:bg-[rgb(var(--trinkui-border)/0.2)]">
+                Bottom
+              </button>
+              <div className="pointer-events-none absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 rounded-md bg-[rgb(var(--trinkui-fg))] px-3 py-1.5 text-xs font-medium text-[rgb(var(--trinkui-bg))] opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                Tooltip on bottom
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-[rgb(var(--trinkui-fg))]" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Installation */}
       <section>

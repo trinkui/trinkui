@@ -1,3 +1,78 @@
+"use client";
+
+import { useState } from "react";
+
+function TabsUnderlineDemo() {
+  const [activeTab, setActiveTab] = useState("overview");
+  const tabs = [
+    { key: "overview", label: "Overview", content: "This is the Overview panel. It provides a high-level summary of your project, including key metrics and recent activity." },
+    { key: "settings", label: "Settings", content: "Configure your preferences here. Manage notifications, privacy controls, and integration settings all in one place." },
+    { key: "billing", label: "Billing", content: "Review your billing history, update payment methods, and manage your subscription plan from this panel." },
+  ];
+
+  return (
+    <div>
+      <div className="flex border-b border-[rgb(var(--trinkui-border))]" role="tablist">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            role="tab"
+            aria-selected={activeTab === tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`relative px-4 py-2.5 text-sm font-medium transition-colors ${
+              activeTab === tab.key
+                ? "text-[rgb(var(--trinkui-primary))]"
+                : "text-[rgb(var(--trinkui-muted))] hover:text-[rgb(var(--trinkui-fg))]"
+            }`}
+          >
+            {tab.label}
+            {activeTab === tab.key && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--trinkui-primary))]" />
+            )}
+          </button>
+        ))}
+      </div>
+      <div role="tabpanel" className="mt-4 text-sm text-[rgb(var(--trinkui-muted))]">
+        {tabs.find((t) => t.key === activeTab)?.content}
+      </div>
+    </div>
+  );
+}
+
+function TabsSolidDemo() {
+  const [activeTab, setActiveTab] = useState("general");
+  const tabs = [
+    { key: "general", label: "General", content: "General settings for your account. Update your display name, email, and profile picture." },
+    { key: "security", label: "Security", content: "Manage your security settings. Enable two-factor authentication, review login history, and set up recovery options." },
+    { key: "notifications", label: "Notifications", content: "Control how and when you receive notifications. Choose between email, push, and in-app notification preferences." },
+  ];
+
+  return (
+    <div>
+      <div className="inline-flex gap-1 rounded-[var(--trinkui-radius-lg)] bg-[rgb(var(--trinkui-secondary))] p-1" role="tablist">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            role="tab"
+            aria-selected={activeTab === tab.key}
+            onClick={() => setActiveTab(tab.key)}
+            className={`rounded-[var(--trinkui-radius-md)] px-4 py-2 text-sm font-medium transition-colors ${
+              activeTab === tab.key
+                ? "bg-[rgb(var(--trinkui-primary))] text-[rgb(var(--trinkui-primary-fg))] shadow-sm"
+                : "text-[rgb(var(--trinkui-muted))] hover:text-[rgb(var(--trinkui-fg))]"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div role="tabpanel" className="mt-4 text-sm text-[rgb(var(--trinkui-muted))]">
+        {tabs.find((t) => t.key === activeTab)?.content}
+      </div>
+    </div>
+  );
+}
+
 export default function TabsPage() {
   return (
     <div className="space-y-10">
@@ -9,6 +84,28 @@ export default function TabsPage() {
           Tabbed navigation for organizing content into separate views. Supports multiple visual variants and sizes.
         </p>
       </div>
+
+      {/* Live Demo: Underline Variant */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Underline Variant</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          The default underline indicator highlights the active tab with a colored bottom border.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <TabsUnderlineDemo />
+        </div>
+      </section>
+
+      {/* Live Demo: Solid Variant */}
+      <section>
+        <h2 className="mb-3 text-lg font-semibold text-[rgb(var(--trinkui-fg))]">Solid Variant</h2>
+        <p className="mb-3 text-[rgb(var(--trinkui-muted))]">
+          The solid variant uses a filled background on the active tab for a bolder visual.
+        </p>
+        <div className="rounded-xl border border-[rgb(var(--trinkui-border))] bg-[rgb(var(--trinkui-bg))] p-6">
+          <TabsSolidDemo />
+        </div>
+      </section>
 
       {/* Installation */}
       <section>
