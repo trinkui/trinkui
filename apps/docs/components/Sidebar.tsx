@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/cn";
 
 interface NavItem {
@@ -12,10 +13,12 @@ interface NavItem {
 interface NavSection {
   title: string;
   items: NavItem[];
+  defaultOpen?: boolean;
 }
 
 const gettingStarted: NavSection = {
   title: "Getting Started",
+  defaultOpen: true,
   items: [
     { label: "Introduction", href: "/docs" },
     { label: "Installation", href: "/docs/installation" },
@@ -25,6 +28,7 @@ const gettingStarted: NavSection = {
 
 const customization: NavSection = {
   title: "Customization",
+  defaultOpen: false,
   items: [
     { label: "Theme", href: "/docs/customization/theme" },
     { label: "Layout", href: "/docs/customization/layout" },
@@ -38,6 +42,7 @@ const customization: NavSection = {
 
 const templates: NavSection = {
   title: "Templates",
+  defaultOpen: false,
   items: [
     { label: "SaaS", href: "/templates/saas" },
     { label: "Agency", href: "/templates/agency" },
@@ -52,6 +57,7 @@ const templates: NavSection = {
 
 const guides: NavSection = {
   title: "Guides",
+  defaultOpen: false,
   items: [
     { label: "Next.js Setup", href: "/docs/guides/nextjs-setup" },
     { label: "Vite Setup", href: "/docs/guides/vite-setup" },
@@ -68,6 +74,7 @@ const guides: NavSection = {
 
 const components: NavSection = {
   title: "Components",
+  defaultOpen: true,
   items: [
     { label: "Accordion", href: "/components/accordion" },
     { label: "Alert", href: "/components/alert" },
@@ -111,6 +118,8 @@ const components: NavSection = {
   ],
 };
 
+const allSections = [gettingStarted, customization, templates, components, guides];
+
 interface SidebarProps {
   onSearchClick?: () => void;
 }
@@ -118,38 +127,96 @@ interface SidebarProps {
 export function Sidebar({ onSearchClick }: SidebarProps) {
   const pathname = usePathname();
 
+  // Auto-open section if current page is in it
+  const getInitialState = (): Record<string, boolean> => {
+    const state: Record<string, boolean> = {};
+    for (const section of allSections) {
+      const hasActivePage = section.items.some((item) => pathname === item.href);
+      state[section.title] = hasActivePage || (section.defaultOpen ?? false);
+    }
+    return state;
+  };
+
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>(getInitialState);
+
+  // Update open state when route changes
+  useEffect(() => {
+    setOpenSections((prev) => {
+      const next = { ...prev };
+      for (const section of allSections) {
+        if (section.items.some((item) => pathname === item.href)) {
+          next[section.title] = true;
+        }
+      }
+      return next;
+    });
+  }, [pathname]);
+
+  const toggleSection = (title: string) => {
+    setOpenSections((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
+
   function renderSection(section: NavSection, isFirst?: boolean) {
+    const isOpen = openSections[section.title] ?? false;
+    const hasActivePage = section.items.some((item) => pathname === item.href);
+
     return (
-      <div key={section.title}>
-        <p
+      <div key={section.title} className={isFirst ? "" : "mt-4"}>
+        <button
+          onClick={() => toggleSection(section.title)}
           className={cn(
-            "text-[11px] font-semibold uppercase tracking-wider text-[rgb(var(--trinkui-muted)/0.6)]",
-            "mb-2",
-            isFirst ? "mt-0" : "mt-6"
+            "flex w-full items-center justify-between py-1.5 text-left",
+            "text-[11px] font-semibold uppercase tracking-wider",
+            "transition-colors duration-150",
+            hasActivePage
+              ? "text-[rgb(var(--trinkui-fg)/0.8)]"
+              : "text-[rgb(var(--trinkui-muted)/0.6)] hover:text-[rgb(var(--trinkui-muted))]"
           )}
         >
-          {section.title}
-        </p>
-        <ul className="space-y-0">
-          {section.items.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "block py-1 px-3 text-[13px] transition-colors duration-150",
-                    isActive
-                      ? "text-[rgb(var(--trinkui-primary))] font-medium"
-                      : "text-[rgb(var(--trinkui-muted)/0.8)] hover:text-[rgb(var(--trinkui-fg))]"
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+          <span>{section.title}</span>
+          <svg
+            className={cn(
+              "h-3.5 w-3.5 shrink-0 transition-transform duration-200",
+              isOpen ? "rotate-0" : "-rotate-90"
+            )}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+
+        <div
+          className={cn(
+            "overflow-hidden transition-all duration-200 ease-in-out",
+            isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ul className="mt-1 space-y-0">
+            {section.items.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "block py-1 px-3 text-[13px] transition-colors duration-150",
+                      isActive
+                        ? "text-[rgb(var(--trinkui-primary))] font-medium"
+                        : "text-[rgb(var(--trinkui-muted)/0.8)] hover:text-[rgb(var(--trinkui-fg))]"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     );
   }
@@ -167,7 +234,7 @@ export function Sidebar({ onSearchClick }: SidebarProps) {
         {renderSection(templates)}
 
         {onSearchClick && (
-          <div className="mt-6">
+          <div className="mt-4">
             <button
               onClick={onSearchClick}
               className={cn(
