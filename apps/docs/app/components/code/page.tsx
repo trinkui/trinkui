@@ -19,9 +19,9 @@ function DemoCode({
     default: "bg-[rgb(var(--trinkui-border)/0.3)] text-[rgb(var(--trinkui-fg))]",
     primary: "bg-[rgb(var(--trinkui-primary)/0.15)] text-[rgb(var(--trinkui-primary))]",
     secondary: "bg-[rgb(var(--trinkui-secondary))] text-[rgb(var(--trinkui-secondary-fg))]",
-    success: "bg-emerald-500/15 text-emerald-400",
-    warning: "bg-amber-500/15 text-amber-400",
-    danger: "bg-red-500/15 text-red-400",
+    success: "bg-[rgb(var(--trinkui-success)/0.15)] text-[rgb(var(--trinkui-success))]",
+    warning: "bg-[rgb(var(--trinkui-warning)/0.15)] text-[rgb(var(--trinkui-warning))]",
+    danger: "bg-[rgb(var(--trinkui-danger)/0.15)] text-[rgb(var(--trinkui-danger))]",
   };
 
   const sizeMap: Record<string, string> = {

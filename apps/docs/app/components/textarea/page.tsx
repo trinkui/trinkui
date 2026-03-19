@@ -60,7 +60,7 @@ function TextareaDemo() {
             </p>
           )}
           {errorVal.length >= 20 && (
-            <p className="mt-1.5 text-xs text-emerald-500">
+            <p className="mt-1.5 text-xs text-[rgb(var(--trinkui-success))]">
               Looks good!
             </p>
           )}
@@ -219,9 +219,9 @@ export default function TextareaPage() {
               <textarea
                 rows={3}
                 placeholder="Tell us about yourself..."
-                className="w-full resize-y rounded-[var(--trinkui-radius-md)] border border-red-500 bg-[rgb(var(--trinkui-bg))] px-3 py-2 text-sm text-[rgb(var(--trinkui-fg))] placeholder:text-[rgb(var(--trinkui-muted))] outline-none focus:ring-2 focus:ring-red-500/30"
+                className="w-full resize-y rounded-[var(--trinkui-radius-md)] border border-[rgb(var(--trinkui-danger))] bg-[rgb(var(--trinkui-bg))] px-3 py-2 text-sm text-[rgb(var(--trinkui-fg))] placeholder:text-[rgb(var(--trinkui-muted))] outline-none focus:ring-2 focus:ring-[rgb(var(--trinkui-danger)/0.3)]"
               />
-              <p className="mt-1.5 text-xs text-red-500">Bio must be at least 20 characters.</p>
+              <p className="mt-1.5 text-xs text-[rgb(var(--trinkui-danger))]">Bio must be at least 20 characters.</p>
             </div>
           </div>
           <div className="border-t border-[rgb(var(--trinkui-border))]">

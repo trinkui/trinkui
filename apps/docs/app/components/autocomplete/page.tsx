@@ -94,7 +94,7 @@ function DemoAutocomplete({
         placeholder={placeholder}
         className={`w-full rounded-[var(--trinkui-radius-md)] border ${
           error
-            ? "border-red-500 focus:ring-red-500/30"
+            ? "border-[rgb(var(--trinkui-danger))] focus:ring-[rgb(var(--trinkui-danger)/0.3)]"
             : "border-[rgb(var(--trinkui-border))] focus:border-[rgb(var(--trinkui-primary))] focus:ring-[rgb(var(--trinkui-primary)/0.3)]"
         } bg-[rgb(var(--trinkui-bg))] ${sizeClasses[size]} text-[rgb(var(--trinkui-fg))] outline-none transition-colors focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50`}
         onChange={(e) => {
@@ -139,7 +139,7 @@ function DemoAutocomplete({
           No results found.
         </div>
       )}
-      {error && <p className="mt-1.5 text-xs text-red-500">{error}</p>}
+      {error && <p className="mt-1.5 text-xs text-[rgb(var(--trinkui-danger))]">{error}</p>}
     </div>
   );
 }
